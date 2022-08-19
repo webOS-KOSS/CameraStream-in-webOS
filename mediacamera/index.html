@@ -1,0 +1,39 @@
+<!--
+Copyright (c) 2020-2022 LG Electronics Inc.
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example Web App</title>
+</head>
+<body>
+    <video id="camera" width="720" height="480" autoplay></video>
+    <script type="text/javascript">
+        function hasGetUserMedia() {
+            return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        }
+    
+        if (hasGetUserMedia()) {
+        // Good to go!
+            console.log("getUserMedia() is supported in your browser");
+        } else {
+            console.log("getUserMedia() is not supported in your browser");
+        }
+    
+        var video = document.getElementById("camera");
+    
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.log("Something went wrong! " + error);
+                });
+        }
+    </script>
+</body>
+</html>
